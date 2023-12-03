@@ -1,3 +1,4 @@
+import fastapi from FastAPI
 app = FastAPI()
 
 @app.get("/")
