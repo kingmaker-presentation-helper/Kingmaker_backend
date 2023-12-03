@@ -1,6 +1,10 @@
 import sqlite3
 from passlib.hash import argon2
 
+# SQLite 연결 및 테이블 생성
+conn = sqlite3.connect('local_database.db')
+cursor = conn.cursor()
+
 # password 비교
 def verify_password(plain_password, hashed_password):
     return argon2.verify(plain_password, hashed_password)
@@ -18,9 +22,6 @@ def get_user_info(user_email: str):
     else:
         return None
 
-# SQLite 연결 및 테이블 생성
-conn = sqlite3.connect('local_database.db')
-cursor = conn.cursor()
 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS users (
@@ -30,11 +31,11 @@ cursor.execute('''
     )
 ''')
 
-# 테스트 사용자 추가
-test_email = "test@gmail.com"
-test_password = "test123"
-hashed_test_password = hash_password(test_password)
+# # 테스트 사용자 추가
+# test_email = "test@gmail.com"
+# test_password = "test123"
+# hashed_test_password = hash_password(test_password)
 
-cursor.execute("INSERT INTO users (email, hashed_password) VALUES (?, ?)", (test_email, hashed_test_password))
+# cursor.execute("INSERT INTO users (email, hashed_password) VALUES (?, ?)", (test_email, hashed_test_password))
 
-conn.commit()
+# conn.commit()
