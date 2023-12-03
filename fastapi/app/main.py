@@ -4,8 +4,8 @@ from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 
-from .database import ( get_user_info, hash_password, verify_password )
-from .data_models import UserLoginSchema
+from database import ( get_user_info, hash_password, verify_password )
+from data_models import UserLoginSchema
 
 app = FastAPI()
 
