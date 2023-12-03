@@ -1,5 +1,22 @@
 import sqlite3
-from passlib.context import CryptContext
+from passlib.hash import argon2
+
+# password 비교
+def verify_password(plain_password, hashed_password):
+    return argon2.verify(plain_password, hashed_password)
+
+# password 암호화
+def hash_password(password):
+    return argon2.hash(password)
+
+# DB 에서 User 정보 가져오기
+def get_user_info(user_email: str):
+    cursor.execute("SELECT * FROM users WHERE email=?", (user_email,))
+    user_info = cursor.fetchone()
+    if user_info:
+        return {"email": user_info[1], "hashed_password": user_info[2]}
+    else:
+        return None
 
 # SQLite 연결 및 테이블 생성
 conn = sqlite3.connect('local_database.db')
@@ -13,27 +30,11 @@ cursor.execute('''
     )
 ''')
 
+# 테스트 사용자 추가
+test_email = "test@gmail.com"
+test_password = "test123"
+hashed_test_password = hash_password(test_password)
+
+cursor.execute("INSERT INTO users (email, hashed_password) VALUES (?, ?)", (test_email, hashed_test_password))
+
 conn.commit()
-
-# password 암호화 모듈
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-
-# password 비교
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
-
-# password 암호화
-def hash_password(password):
-    return pwd_context.hash(password)
-
-
-# DB 에서 User 정보 가져오기
-def get_user_info(user_email: str):
-    cursor.execute("SELECT * FROM users WHERE email=?", (user_email,))
-    user_info = cursor.fetchone()
-    if user_info:
-        return {"email": user_info[1], "hashed_password": user_info[2]}
-    else:
-        return None
