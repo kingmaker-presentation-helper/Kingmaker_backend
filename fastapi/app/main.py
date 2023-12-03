@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body, HTTPException
 from pydantic import BaseModel
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
@@ -6,6 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from database import ( get_user_info, hash_password, verify_password )
 from data_models import UserLoginSchema
+from auth.jwt_handler import (signJWT, decodeJWT)
+from auth.jwt_bearer import jwtBearer
 
 app = FastAPI()
 

@@ -23,13 +23,13 @@ def get_user_info(user_email: str):
         return None
 
 
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        email TEXT NOT NULL,
-        hashed_password TEXT NOT NULL
-    )
-''')
+# cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS users (
+#         id INTEGER PRIMARY KEY AUTOINCREMENT,
+#         email TEXT NOT NULL,
+#         hashed_password TEXT NOT NULL
+#     )
+# ''')
 
 # # 테스트 사용자 추가
 # test_email = "test@gmail.com"
