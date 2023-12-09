@@ -17,13 +17,23 @@ def calculate_angle(a,b,c):
     # 라디안을 계산하고 실제 각도로 변경한다.
     radians = np.arctan2(c[1]-b[1], c[0]-b[0]) - np.arctan2(a[1]-b[1], a[0]-b[0])
     angle = np.abs(radians*180.0/np.pi)
-    
+
     # 180도가 넘으면 360에서 뺀 값을 계산한다.
     if angle >180.0:
         angle = 360-angle
 
     # 각도를 리턴한다.
     return angle
+
+# 이미지 불러오기
+img_list = os.listdir('capture')
+img_list.sort()
+
+imgs = []
+
+for img in img_list:
+    imgs.append(cv2.imread('capture/' + img))
+    
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -38,9 +48,9 @@ pose_state = 0
 
 ## Setup mediapipe instance
 with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
-    while cap.isOpened():
-        ret, frame = cap.read()
-        
+    for frame in imgs:
+    # while cap.isOpened():
+        # ret, frame = cap.read()
         # Recolor image to RGB
         image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         image.flags.writeable = False
