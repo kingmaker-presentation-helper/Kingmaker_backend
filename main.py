@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from database.connetion import conn
 from routes.users import user_router
 from routes.events import event_router
+from routes.function import function_router
 
 # FastAPI
 app = FastAPI()
@@ -12,6 +13,7 @@ app = FastAPI()
 # 라우터 등록
 app.include_router(user_router, prefix="/user")
 app.include_router(event_router, prefix="/events")
+app.include_router(function_router, prefix="/function")
 
 #애플리케이션이 시작 될 때 데이터베이스를 생성하도록 만듬
 @app.on_event("startup")

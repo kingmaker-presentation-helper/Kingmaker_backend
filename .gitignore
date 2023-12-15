@@ -2,3 +2,7 @@ routes/function.py
 ca_bundle.crt
 certificate.crt
 private.key
+*.jpg
+*.mp4
+*.pyc
+*.png
