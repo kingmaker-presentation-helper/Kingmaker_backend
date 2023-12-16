@@ -4,7 +4,7 @@ async def find_fillerword(session_key):
 
     with open("fillerword.txt", "r", encoding="utf-8") as f:
         input_keywords = f.read().split(",")
-    with open(f"func/{session_key}/asr.txt", "r", encoding="utf-8") as f:
+    with open(f"user/{session_key}/asr.txt", "r", encoding="utf-8") as f:
         input_sentence = f.read()
 
     # 함수 호출하여 각 키워드별 검출 수 얻기

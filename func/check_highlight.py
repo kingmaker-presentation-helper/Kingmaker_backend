@@ -7,10 +7,10 @@ kiwi = Kiwi(num_workers=4)
 async def check_highlight(session_key):
     # 입력 데이터와 비교할 단어 목록을 이벤트에서 추출
     # sessionkey/asr.txt 파일을 읽어서 텍스트를 추출
-    with open(f"func/{session_key}/asr.txt", "r", encoding="utf-8") as f:
+    with open(f"user/{session_key}/asr.txt", "r", encoding="utf-8") as f:
         input_text = f.read()
     # sessionkey/keywords.txt 파일을 읽어서 텍스트를 추출
-    with open(f"func/{session_key}/keywords.txt", "r", encoding="utf-8") as f:
+    with open(f"user/{session_key}/keywords.txt", "r", encoding="utf-8") as f:
         comparison_words = f.read()
     
     comparison_words = comparison_words.split()

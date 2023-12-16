@@ -4,14 +4,14 @@ import os
 
 async def check_speech_speed(session_key):
 
-    text_file_path = f"func/{session_key}/asr.txt"
+    text_file_path = f"user/{session_key}/asr.txt"
     
-    for file in os.listdir(f"func/{session_key}"):
+    for file in os.listdir(f"user/{session_key}"):
         if file.endswith(".mp4"):
-            video_file_path = f"func/{session_key}/{file}"
+            video_file_path = f"user/{session_key}/{file}"
 
     # duration.txt 열어서 숫자가져오기
-    with open(f"func/{session_key}/duration.txt", "r") as f:
+    with open(f"user/{session_key}/duration.txt", "r") as f:
         file_duration_in_seconds = float(f.read())
     
     with open(text_file_path, "r", encoding="utf-8") as f:

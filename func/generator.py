@@ -16,8 +16,8 @@ model = "gpt-3.5-turbo"
 async def generate(session_key, type):
 
     try:
-        # func/{session_key}/asr.txt 파일 열어서 문장 가져오기
-        with open(f"func/{session_key}/asr.txt", "r", encoding="utf-8") as f:
+        # user/{session_key}/asr.txt 파일 열어서 문장 가져오기
+        with open(f"user/{session_key}/asr.txt", "r", encoding="utf-8") as f:
             statement = f.read()
 
     except Exception as e:
@@ -53,7 +53,7 @@ async def generate(session_key, type):
     answer = response['choices'][0]['message']['content']
     
     # 결과 저장하기
-    with open(f"func/{session_key}/{type}.txt", "w", encoding="utf-8") as f:
+    with open(f"user/{session_key}/generated_{type}.txt", "w", encoding="utf-8") as f:
         f.write(answer)
 
     return {

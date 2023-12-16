@@ -150,7 +150,7 @@ def evaluate_pronunciation(audio_path, segment_text):
 async def run_asr(session_key):
     
     # 로컬 경로 설정
-    local_directory = f"func/{session_key}"
+    local_directory = f"user/{session_key}"
     
     if not os.path.exists(local_directory):
         return {"error": "No such directory"}
@@ -257,23 +257,3 @@ def process_audio_segments(local_audio_path, segments, sample_rate, language_cod
                 print(f'A segment processing generated an exception: {exc}')
 
     return results
-
-# run_asr("test")
-
-# 테스트 데이터 생성
-# test_event = {
-#     "id": "king",
-#     "file_id": "ex",
-#     "file_number": "3"
-# }
-
-# 더미 컨텍스트 객체
-class DummyContext:
-    def __init__(self):
-        self.function_name = 'test_lambda_function'
-        self.memory_limit_in_mb = 128
-
-# dummy_context = DummyContext()
-
-# # `handler` 함수 호출
-# handler(test_event, dummy_context)
