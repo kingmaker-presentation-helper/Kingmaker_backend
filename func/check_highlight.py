@@ -10,10 +10,14 @@ async def check_highlight(session_key):
     with open(f"user/{session_key}/asr.txt", "r", encoding="utf-8") as f:
         input_text = f.read()
     # sessionkey/keywords.txt 파일을 읽어서 텍스트를 추출
-    with open(f"user/{session_key}/keywords.txt", "r", encoding="utf-8") as f:
+    with open(f"user/{session_key}/generated_keyword.txt", "r", encoding="utf-8") as f:
         comparison_words = f.read()
     
-    comparison_words = comparison_words.split()
+    # string을 dictionary로 변환
+    comparison_words = json.loads(comparison_words)
+
+    # value 값만 list로 저장
+    comparison_words = list(comparison_words.values())
 
     # Kiwi로 텍스트에서 명사 추출
     nouns = []
@@ -34,5 +38,9 @@ async def check_highlight(session_key):
         'extracted_nouns': nouns
     }
     print(result)
+
+    # user/{session_key}에 txt 형식으로 저장
+    with open(f"user/{session_key}/highlight.txt", "w", encoding="utf-8") as f:
+        f.write(json.dumps(result, ensure_ascii=False))
 
     return result  # JSON 문자열 변환 없이 바로 Python 딕셔너리 반환
