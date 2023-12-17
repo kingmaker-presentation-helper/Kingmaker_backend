@@ -26,10 +26,10 @@ def calculate_angle(a,b,c):
 
 def detect_pose(session_key):
     local_file_path = f"user/{session_key}"
-    # 이미지 불러오기
-    img_list = os.listdir(local_file_path)
-    img_list.sort()
-
+    # ".png"나 '.jpg'로 끝나는 파일 불러오기
+    img_list = [file for file in os.listdir(local_file_path) if file.endswith(".png") or file.endswith(".jpg")]
+    img_list.sort(key=natural_sort_key)
+    
     imgs = []
 
     for img in img_list:
