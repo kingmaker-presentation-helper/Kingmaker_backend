@@ -19,7 +19,12 @@ async def generate(session_key, type):
         # user/{session_key}/asr.txt 파일 열어서 문장 가져오기
         with open(f"user/{session_key}/asr.txt", "r", encoding="utf-8") as f:
             statement = f.read()
-
+        with open(f"user/{session_key}/info.txt", "r", encoding="utf-8") as f:
+            # json 형식으로 저장되어 있는데, 그 중 "keyword"키에 해당하는 것을 가져와줘
+            import json
+            data = json.load(f)
+            words = data["keyword"]
+            
     except Exception as e:
         return {
             "statusCode": 500,
@@ -44,7 +49,7 @@ async def generate(session_key, type):
         },
         {
             "role": "user",
-            "content": query + " " + statement
+            "content": query + " " + statement + "다음과 같은 전문 용어들이 등장할 수 있어. 발표문에서 전문 용어에 오타가 있어도 참고해서 생성해줘. [전문 용어]" + words
         }
     ]
 
@@ -58,5 +63,5 @@ async def generate(session_key, type):
 
     return {
         "statusCode": 200,
-        "body": answer
+        "body": answer 
     }
