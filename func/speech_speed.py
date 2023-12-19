@@ -23,6 +23,12 @@ async def check_speech_speed(session_key):
         graphemes_per_second = calculate_parameter_per_second(grapheme_count, file_duration_in_seconds)
         words_per_second = calculate_parameter_per_second(word_count, file_duration_in_seconds)
 
+        # 결과 txt 파일로 저장
+        with open(f"user/{session_key}/speech_speed.txt", "w", encoding="utf-8") as f:
+            f.write(f"grapheme_count: {grapheme_count}\n")
+            f.write(f"word_count: {word_count}\n")
+            f.write(f"graphemes_per_second: {graphemes_per_second}\n")
+            f.write(f"words_per_second: {words_per_second}\n")
         # 결과 출력
         return {
             "grapheme_count": grapheme_count,

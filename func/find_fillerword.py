@@ -16,10 +16,14 @@ async def find_fillerword(session_key):
     for keyword, count in sorted_keywords:
         print(f"{keyword}: {count} 번")
 
+    # txt 파일로 저장
+    with open(f"user/{session_key}/fillerword.txt", "w", encoding="utf-8") as f:
+        f.write(f"{sorted_keywords}")
     # 문장 속 모든 단어의 갯수 구하기
     word_count = len(re.findall(r'\w+', input_sentence))
     print(f"\n2. 문장 속 모든 단어의 갯수: {word_count} 개")
 
+    
     return keyword_counts
 
 def count_matching_words(sentence, keywords):

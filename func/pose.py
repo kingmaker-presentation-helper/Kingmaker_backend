@@ -24,7 +24,7 @@ def calculate_angle(a,b,c):
     # 각도를 리턴한다.
     return angle
 
-def detect_pose(session_key):
+async def detect_pose(session_key):
     local_file_path = f"user/{session_key}"
     # ".png"나 '.jpg'로 끝나는 파일 불러오기
     img_list = [file for file in os.listdir(local_file_path) if file.endswith(".png") or file.endswith(".jpg")]
