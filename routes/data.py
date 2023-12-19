@@ -61,3 +61,13 @@ async def download_video(sessionKey: str):
         if file.endswith(".mp4"):
             return FileResponse(f"user/{sessionKey}/{file}")
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content={"message": "mp4 파일을 찾을 수 없습니다."})
+
+# {sessionKey}/info.txt에 저장되어있는 json 형식의 데이터를 읽어서 반환
+@data_router.get("/info/{sessionKey}")
+async def get_info(sessionKey: str):
+    try:
+        with open(f"user/{sessionKey}/info.txt", "r", encoding="utf-8") as f:
+            data = f.read()
+            return JSONResponse(status_code=status.HTTP_200_OK, content=data)
+    except Exception as e:
+        return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content={"message": str(e)})
