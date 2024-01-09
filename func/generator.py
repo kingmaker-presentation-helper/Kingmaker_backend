@@ -35,10 +35,12 @@ async def generate(session_key, type):
         query = "다음은 발표문이야. 발표문을 잘 이해하고 예상되는 질문 15개를 생성해봐. 형식: {\"1\": \"질문1 내용\", \"2\": \"질문2 내용\"}. [발표문]"
     elif type == "keyword":
         query = "다음은 발표문이야. 발표문을 잘 이해하고 키워드 15개를 생성해봐. 키워드는 명사 한 개여야 돼. 형식: {\"1\": \"마약\", \"2\": \"검거\"}. [발표문]"
+    elif type == "paragraph":
+        query = "다음은 발표문이야. 발표문을 잘 이해하고 서론 본론 결론으로 나누어봐. 형식: {{\"서론\": \"서론 내용\", \"본론\": \"본론 내용\", \"결론\": \"결론 내용\"}. [발표문]}"
     else:
         return {
             "statusCode": 500,
-            "body": "type을 question 또는 keyword로 설정해주세요."
+            "body": "type을 question, keyword, paragraph로 설정해주세요."
         }
     
     # 메시지 설정하기
