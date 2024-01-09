@@ -86,24 +86,24 @@ async def detect_pose(session_key):
                 right_angle1 = calculate_angle(left_shoulder, right_shoulder, right_elbow)
                 right_angle2 = calculate_angle(right_shoulder, right_elbow, right_wrist)
                 
-                if left_angle1 < 110:
+                if left_angle1 < 115:
                     state1 = 0
                 if left_angle1 > 120 and state1 == 0:
                     state1= 1
 
-                if left_angle2 > 160:
+                if left_angle2 > 140:
                     state2 = 0
-                if left_angle2 < 90 and state2 == 0:
+                if left_angle2 < 100 and state2 == 0:
                     state2=1
                 
-                if right_angle1 < 110:
+                if right_angle1 < 115:
                     state3 = 0
                 if right_angle1 > 120 and state3 == 0:
                     state3= 1
                 
-                if right_angle2 > 160:
+                if right_angle2 > 140:
                     state4 = 0
-                if right_angle2 < 90 and state4 == 0:
+                if right_angle2 < 100 and state4 == 0:
                     state4=1
 
                 if not pose_state:
@@ -133,12 +133,13 @@ async def detect_pose(session_key):
                         count += 1
                         cv2.imwrite(f'{local_file_path}/capture/pic' + str(count) +'.png', image)
 
-                if (not state1 and not state2) and (not state3 and not state4):
+                if (not state1 and not state2) and (not state3 and not state4) :
                     pose_state = 0
 
                 
                 print("state1: ", state1, "state2: ", state2, "state3: ", state3, "state4: ", state4)
                 print("pose_state: ", pose_state)
+                
                 print(count)
                     
                 # Visualize angle
@@ -171,9 +172,11 @@ async def detect_pose(session_key):
                                     )               
             
             # cv2.imshow('Mediapipe Feed', image)
+            # 0.1초 sleep
+            # cv2.waitKey(100)
 
-            # if cv2.waitKey(10) & 0xFF == ord('q'):
-            #     break
+        #     if cv2.waitKey(10) & 0xFF == ord('q'):
+        #         break
 
-        cap.release()
-        cv2.destroyAllWindows()
+        # # cap.release()
+        # cv2.destroyAllWindows()

@@ -162,6 +162,9 @@ async def run_asr(session_key):
         if file.endswith(".mp4"):
             # file 이름을 local_audio_path에 저장
             local_audio_path = os.path.join(local_directory, file)
+    # local_audio_path의 절대 경로 가져오기
+    local_audio_abs_path = os.path.abspath(local_audio_path)
+    # reencode_mp4(local_audio_abs_path, local_audio_abs_path)
 
     # 처리된 텍스트를 저장할 경로 설정
     local_text_path = os.path.join(local_directory, f"asr.txt")
@@ -257,3 +260,24 @@ def process_audio_segments(local_audio_path, segments, sample_rate, language_cod
                 print(f'A segment processing generated an exception: {exc}')
 
     return results
+
+import subprocess
+
+def reencode_mp4(input_path, output_path):
+    # FFmpeg이 시스템에 설치되어 있는지 확인
+    try:
+        subprocess.run(['ffmpeg', '-version'], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        
+    except subprocess.CalledProcessError:
+        print('FFmpeg이 설치되지 않았습니다. https://ffmpeg.org/download.html에서 설치하세요.')
+        return
+
+    # MP4 파일 재인코딩
+    try:
+        # subprocess.run(['ffmpeg', '-i', input_path, '-c', 'copy', output_path], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.run(['ffmpeg', '-i', input_path, '-c:v', 'libx264', '-c:a', 'aac', output_path], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        print('재인코딩이 완료되었습니다.')
+    except subprocess.CalledProcessError as e:
+        print('재인코딩 중 오류 발생:', e)
+
