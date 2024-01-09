@@ -4,10 +4,13 @@ from starlette.requests import Request
 import boto3
 import mediapipe as mp
 import cv2
-import numpy as np
+import numpy as npC
 import sys, os
 import datetime
 import secrets
+
+from func.QA import QA_Run
+
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from func.pose import detect_pose
 # from func.s3 import upload_file_to_s3
@@ -46,7 +49,6 @@ async def get_session_key():
 @function_router.get("/pose/{sessionkey}")
 async def pose(sessionkey: str):
     await detect_pose(f"{sessionkey}")
-
 
 # 파일을 유저 폴더에 저장하고 파일 이름 반환
 @function_router.post("/files/")
@@ -118,6 +120,12 @@ async def generate_keyword(sessionKey: str, type: str):
 @function_router.get("/fillerword/{sessionKey}")
 async def fillerword(sessionKey: str):
     response = await find_fillerword(sessionKey)
+    return response
+
+# QA
+@function_router.get("/QA/{sessionKey}")
+async def QA(sessionKey: str):
+    response = await QA_Run(sessionKey)
     return response
 
 # 발표 분석 기능 수행
