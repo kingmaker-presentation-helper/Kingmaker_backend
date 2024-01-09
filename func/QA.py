@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 import os, sys
+import re
 import urllib3
 import json
 import settings
@@ -10,12 +11,20 @@ openApiURL = "http://aiopen.etri.re.kr:8000/MRCServlet"
 accessKey = settings.ETRI_ACCESS_KEY
 #-----------------------------------------------------------------------------
 
-async def QA_Run(session_key):
-    question = "인공지능은 무엇이야?"  # 사용자 입력을 받음
+def extract_text(passage):
+    # 부동 소수점 수를 찾는 정규 표현식
+    pattern = re.compile(r'\s+\d+\.\d+$')
+    # 정규 표현식을 사용하여 부동 소수점 수를 찾고, 해당 부분을 제거
+    text_only = re.sub(pattern, '', passage)
+    return text_only
+
+async def QA_Run(session_key, question):
+    # question = "test"  # 사용자 입력을 받음
     passage = "test"
     try:
         with open(f"./user/{session_key}/asr.txt", "r", encoding="utf-8") as f:
             passage = f.read()
+            passage = extract_text(passage)
     except Exception as e:
         print(e)
         exit()
@@ -42,7 +51,10 @@ async def QA_Run(session_key):
     # 필요한 데이터 추출
     answer = data["return_object"]["MRCInfo"]["answer"]
     confidence = data["return_object"]["MRCInfo"]["confidence"]
-
+    q = data["return_object"]["MRCInfo"]["question"]
+    p = data["return_object"]["MRCInfo"]["passage"]
+    print(q)
+    print(p)
     print("Answer:", answer)
     print("Confidence:", confidence)
 

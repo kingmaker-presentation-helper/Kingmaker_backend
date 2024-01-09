@@ -124,8 +124,8 @@ async def fillerword(sessionKey: str):
 
 # QA
 @function_router.get("/QA/{sessionKey}")
-async def QA(sessionKey: str):
-    response = await QA_Run(sessionKey)
+async def QA(sessionKey: str, question: str):
+    response = await QA_Run(sessionKey, question)
     return response
 
 # 발표 분석 기능 수행
