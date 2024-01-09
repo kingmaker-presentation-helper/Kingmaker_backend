@@ -28,6 +28,15 @@ async def process_data(session_key, tag):
             question = ast.literal_eval(question)
 
             return question
+        
+        elif tag == "paragraph":
+            # open generated_paragraph.txt and read the content(dictionary)
+            with open(f'user/{session_key}/generated_paragraph.txt', 'r', encoding="utf-8") as f:
+                paragraph = f.read()
+            # convert string to dictionary
+            # paragraph = ast.literal_eval(paragraph)
+
+            return paragraph
 
         elif tag == "duration":
             # open duration.txt and read the content

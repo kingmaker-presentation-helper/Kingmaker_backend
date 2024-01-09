@@ -20,6 +20,11 @@ async def get_keyword(session_key: str):
     data = await process_data(session_key, "keyword")
     return data
 
+@data_router.get("/paragraph/{sessionkey}")
+async def get_keyword(session_key: str):
+    data = await process_data(session_key, "paragraph")
+    return data
+
 @data_router.get("/question/{sessionkey}")
 async def get_question(session_key: str):
     data = await process_data(session_key, "question")
