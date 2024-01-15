@@ -11,3 +11,5 @@ keyword_dataset/*
 *.json
 Untitled-1.py
 test_keyword.py
+*.pcm
+*.wav
