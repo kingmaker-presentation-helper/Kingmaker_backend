@@ -26,7 +26,6 @@ import soundfile as sf
 
 from pydantic import BaseModel
 
-import comtypes.client
 from pdf2image import convert_from_bytes
 import base64
 from func.ppt2img import save_ppt, ppt2pdf, pdf2img
