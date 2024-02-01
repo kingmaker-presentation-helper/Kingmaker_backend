@@ -199,7 +199,7 @@ async def upload_ppt(request: Request, file: UploadFile = File(...), user_name: 
         raise
 
 @function_router.get("/ppt_img/{sessionKey}")
-async def get_images(sessionKey: str):
+async def get_images(sessionKey: str):  
     file_path = os.path.join(os.getcwd(), "user", sessionKey, "ppt")
 
     print(file_path)
