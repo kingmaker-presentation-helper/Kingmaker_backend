@@ -26,9 +26,9 @@ import soundfile as sf
 
 from pydantic import BaseModel
 
-from pdf2image import convert_from_bytes
+# from pdf2image import convert_from_bytes
 import base64
-from func.ppt2img import save_ppt, ppt2pdf, pdf2img
+# from func.ppt2img import save_ppt, ppt2pdf, pdf2img
 
 
 
@@ -188,9 +188,9 @@ async def upload_ppt(request: Request, file: UploadFile = File(...), user_name: 
         
         ppt_bytes = await file.read()
 
-        save_ppt(ppt_bytes, file_path)
-        pdf_path = ppt2pdf(file_path)
-        images = pdf2img(pdf_path, file_path)
+        # save_ppt(ppt_bytes, file_path)
+        # pdf_path = ppt2pdf(file_path)
+        # images = pdf2img(pdf_path, file_path)
         print('ppt upload success')
         return JSONResponse(content = {"message" : "ppt upload success"})
     
