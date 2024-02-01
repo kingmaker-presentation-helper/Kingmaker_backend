@@ -13,10 +13,6 @@ from func.QA import QA_Run
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from func.pose import detect_pose
-<<<<<<< Updated upstream
-# from func.s3 import upload_file_to_s3
-=======
->>>>>>> Stashed changes
 from func.asr import run_asr
 from func.check_highlight import check_highlight
 from func.speech_speed import check_speech_speed
