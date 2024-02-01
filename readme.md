@@ -70,4 +70,4 @@ output) result: 강조된 단어별로 그 단어의 개수, em_score를 리스�
 1. process_data(session_key, tag): return ~~~
 input) session_key: 사용자의 세션키, tag: 발표연습과 관련하여 요청할 데이터
 output) ~~~: tag에서 요청한 데이터
-역할) 
+역할) tag를 이용해 어떤 데이터를 요청했는지 확인하고 맞는 데이터를 반환한다.
