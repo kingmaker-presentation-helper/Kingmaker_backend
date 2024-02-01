@@ -15,6 +15,11 @@ origins = [
 	"http://127.0.0.1:9000",
 	"http://127.0.0.1:8080",
 	"http://127.0.0.1",
+	"http://43.200.201.188:9000/"
+	"http://43.200.201.188/"
+	"https://kingmaker.site"
+	"http://kingmaker.site"
+	
 ]
 
 
