@@ -20,7 +20,7 @@ charset-normalizer==3.3.2
 click==8.1.7
 cloudevents==1.9.0
 colorama==0.4.6
-contourpy==1.2.0
+# contourpy==1.2.0
 cryptography==41.0.5
 cycler==0.12.1
 decorator==5.1.1
