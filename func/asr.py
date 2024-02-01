@@ -23,7 +23,7 @@ openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/Recognition"
 accessKey = settings.ETRI_ACCESS_KEY
 languageCode = "korean"
 #-----------------------------------------------------------------------------
-def reduce_noise(data, sample_rate):    
+async def reduce_noise(data, sample_rate):    
     if not np.isfinite(data).all():
         raise ValueError("Input audio data contains non-finite values.")
 
@@ -31,7 +31,7 @@ def reduce_noise(data, sample_rate):
 
     return data
 
-def preprocess_audio(file_path, local_directory):
+async def preprocess_audio(file_path, local_directory):
     if not file_path.endswith('.pcm'):
         audio = AudioSegment.from_file(file_path)
         file_path_temp = file_path.rsplit('.', 1)[0] + '.wav'
@@ -72,7 +72,7 @@ def evaluate_pronunciation_parallel(segment_paths, segment_texts):
 
 
 #음성인식
-def recognize_speech(audio_path, http_manager, language_code, open_api_url, access_key):
+async def recognize_speech(audio_path, http_manager, language_code, open_api_url, access_key):
     try:
         with open(audio_path, "rb") as file:
             audio_contents = base64.b64encode(file.read()).decode("utf8")
@@ -106,7 +106,7 @@ def recognize_speech(audio_path, http_manager, language_code, open_api_url, acce
 
 #발음 평가
 valid_segments = 0
-def evaluate_pronunciation(audio_path, segment_text):
+async def evaluate_pronunciation(audio_path, segment_text):
     try:
         openApiURL = "http://aiopen.etri.re.kr:8000/WiseASR/PronunciationKor"
         languageCode = "korean"
@@ -172,10 +172,10 @@ async def run_asr(session_key):
             raise Exception("No audio file found.")
         
         # 오디오 전처리 및 세그먼트 생성
-        segments, sample_rate = preprocess_audio(local_audio_path, local_directory)
+        segments, sample_rate = await preprocess_audio(local_audio_path, local_directory)
 
         # 음성 인식 및 발음 평가 실행
-        results = process_audio_segments(local_audio_path, segments, sample_rate, languageCode, openApiURL, accessKey)
+        results = await process_audio_segments(local_audio_path, segments, sample_rate, languageCode, openApiURL, accessKey)
 
         total_score = 0.0
         valid_segments = 0
